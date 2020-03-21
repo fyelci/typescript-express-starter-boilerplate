@@ -1,0 +1,24 @@
+import { Router } from 'express';
+import swaggerUi from 'swagger-ui-express';
+import apiSpec from '../openapi.json';
+
+import * as PostController from './post/post.controller';
+
+const swaggerUiOptions = {
+  customCss: '.swagger-ui .topbar { display: none }'
+};
+
+const router = Router();
+
+// Post routes
+router.post('/posts', PostController.create);
+router.get('/posts', PostController.get);
+router.get('/posts/search', PostController.search);
+
+// Dev routes
+if (process.env.NODE_ENV === 'development') {
+  router.use('/dev/api-docs', swaggerUi.serve);
+  router.get('/dev/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions));
+}
+
+export default router;

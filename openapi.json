@@ -1,0 +1,171 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Service",
+    "version": "1.0.0",
+    "description": "API Service endpoints",
+    "contact": {
+      "email": "",
+      "name": "Fatih Yeli"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "post",
+      "description": "Sample Service APIs"
+    }
+  ],
+  "paths": {
+    "/posts": {
+      "post": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Add a post to the database",
+        "operationId": "post-add",
+        "requestBody": {
+          "description": "New user signing up",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DraftPostSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Post was added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftPostSchema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Get all posts in database",
+        "operationId": "post-get-all",
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PostSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/posts/search": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Search posts by title or author",
+        "operationId": "post-search",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "title",
+            "schema": {
+              "type": "string",
+              "default": "hitchhiker"
+            },
+            "description": "String containing full title or partial title of the post"
+          },
+          {
+            "in": "query",
+            "name": "author",
+            "schema": {
+              "type": "string",
+              "default": "douglas"
+            },
+            "description": "String containing full name or partial name of the author"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "posts": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PostSchema"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DraftPostSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "The Hitchhiker's Guide to the Galaxy"
+          },
+          "author": {
+            "type": "string",
+            "example": "Douglas Adams"
+          }
+        }
+      },
+      "PostSchema": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DraftPostSchema"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5d7224d3b40b1a1a046697dd"
+          }
+        }
+      }
+    }
+  }
+}
