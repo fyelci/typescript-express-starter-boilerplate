@@ -14,7 +14,7 @@ async function updatePost(id: string, body: any) {
     const {
         title, author, totalPages, publishDate,
     } = body;
-    await PostModel.findOneAndUpdate({ _id: id }, { title, author, totalPages, publishDate });
+    return PostModel.findOneAndUpdate({ _id: id }, { title, author, totalPages, publishDate });
 }
 
 /**

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
-import apiSpec from '../openapi.json';
+import YAML from 'yamljs';
+const swaggerDocument = YAML.load('./openapi.yaml');
 import handleErrorMiddleware from './middleware/handle-error-middleware';
 
 import * as PostController from './post/post.controller';
@@ -20,7 +21,7 @@ router.delete('/posts/:id', handleErrorMiddleware(PostController.deletePost));
 // Dev routes
 if (process.env.NODE_ENV === 'development') {
   router.use('/dev/api-docs', swaggerUi.serve);
-  router.get('/dev/api-docs', swaggerUi.setup(apiSpec, swaggerUiOptions));
+  router.get('/dev/api-docs', swaggerUi.setup(swaggerDocument, swaggerUiOptions));
 }
 
 export default router;

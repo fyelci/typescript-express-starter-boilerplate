@@ -26,7 +26,7 @@ const get: RequestHandler = async (req: Request, res: Response) => {
 
 const deletePost: RequestHandler = async (req: Request, res: Response) => {
     await deletePostById(req.params.id);
-    res.send();
+    res.send({message: 'OK'});
 };
 
 export {
