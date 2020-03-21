@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/fyelci/typescript-express-starter-boilerplate.svg?branch=master)](https://travis-ci.com/fyelci/typescript-express-starter-boilerplate)
+
 # TypeScript Express Starter Boilerplate
 This repo is a sample api service to use typescript, express, mongodb. 
 It comes bundled with Docker and is CI/CD optimized. 

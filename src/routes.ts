@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import apiSpec from '../openapi.json';
+import handleErrorMiddleware from './middleware/handle-error-middleware';
 
 import * as PostController from './post/post.controller';
 
@@ -11,9 +12,10 @@ const swaggerUiOptions = {
 const router = Router();
 
 // Post routes
-router.post('/posts', PostController.create);
-router.get('/posts', PostController.get);
-router.get('/posts/search', PostController.search);
+router.post('/posts', handleErrorMiddleware(PostController.create));
+router.put('/posts/:id', handleErrorMiddleware(PostController.update));
+router.get('/posts', handleErrorMiddleware(PostController.get));
+router.delete('/posts/:id', handleErrorMiddleware(PostController.deletePost));
 
 // Dev routes
 if (process.env.NODE_ENV === 'development') {

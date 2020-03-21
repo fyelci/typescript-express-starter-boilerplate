@@ -40,7 +40,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Post was added",
             "content": {
               "application/json": {
@@ -59,38 +59,7 @@
         "tags": [
           "post"
         ],
-        "summary": "Get all posts in database",
-        "operationId": "post-get-all",
-        "responses": {
-          "200": {
-            "description": "Search results",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "posts": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/PostSchema"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    },
-    "/posts/search": {
-      "get": {
-        "tags": [
-          "post"
-        ],
-        "summary": "Search posts by title or author",
+        "summary": "Get Posts. Also can search by params",
         "operationId": "post-search",
         "parameters": [
           {
@@ -149,6 +118,14 @@
           "author": {
             "type": "string",
             "example": "Douglas Adams"
+          },
+          "totalPages": {
+            "type": "integer",
+            "example": 120
+          },
+          "publishDate": {
+            "type": "string",
+            "example": "2020-03-21T20:38:42.968Z"
           }
         }
       },

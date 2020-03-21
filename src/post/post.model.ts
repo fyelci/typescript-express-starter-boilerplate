@@ -16,8 +16,10 @@ interface IPostModel extends Model<IPost> { }
 const schema = new Schema({
   title: { type: String, required: true },
   author: { type: String, required: true },
-  totalPages: { type: Number, required: true },
-  publishDate: { type: Date, required: true }
+  totalPages: { type: Number, required: false },
+  publishDate: { type: Date, required: false },
+}, {
+  timestamps:true,
 });
 
 const PostModel: IPostModel = model<IPost, IPostModel>('Post', schema);
