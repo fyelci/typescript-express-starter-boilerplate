@@ -3,7 +3,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import path from 'path';
 import express, { Request, Response, NextFunction } from 'express';
-import { ApplicationError } from './errors';
+import { ApplicationError } from './utils/applicationError';
 import routes from './routes';
 
 const app = express();

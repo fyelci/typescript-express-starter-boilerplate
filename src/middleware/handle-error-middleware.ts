@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import logger from '../logger';
+import logger from '../utils/logger';
 
 /**
  * This router wrapper catches any error from async await

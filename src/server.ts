@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import app from './app';
-import MongoConnection from './mongo-connection';
-import logger from './logger';
+import MongoConnection from './utils/mongo-connection';
+import logger from './utils/logger';
 
 const result = dotenv.config();
 if (result.error) {
