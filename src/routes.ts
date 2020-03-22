@@ -4,7 +4,7 @@ import YAML from 'yamljs';
 const swaggerDocument = YAML.load('./openapi.yaml');
 import handleErrorMiddleware from './middleware/handle-error-middleware';
 
-import * as PostController from './post/post.controller';
+import * as PostController from './controllers/post.controller';
 
 const swaggerUiOptions = {
   customCss: '.swagger-ui .topbar { display: none }'

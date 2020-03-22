@@ -1,5 +1,5 @@
 import { RequestHandler, Request, Response } from 'express';
-import { createPost, updatePost, getPosts, deletePostById } from './post.service';
+import { createPost, updatePost, getPosts, deletePostById } from '../repositories/post.repository';
 
 const create: RequestHandler = async (req: Request, res: Response) => {
     const post = await createPost(req.body);
@@ -11,11 +11,10 @@ const create: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const update: RequestHandler = async (req: Request, res: Response) => {
-    const post = await updatePost(req.params.id, req.body);
+    await updatePost(req.params.id, req.body);
 
     res.json({
-        message: 'Updated',
-        post
+        message: 'Updated'
     });
 };
 

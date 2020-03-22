@@ -1,4 +1,4 @@
-import PostModel, { IPost } from './post.model';
+import PostModel, { IPost } from '../models/post.model';
 
 async function createPost(body: any): Promise<IPost> {
     const {
@@ -14,7 +14,7 @@ async function updatePost(id: string, body: any) {
     const {
         title, author, totalPages, publishDate,
     } = body;
-    return PostModel.findOneAndUpdate({ _id: id }, { title, author, totalPages, publishDate });
+    await PostModel.updateOne({ _id: id }, { title, author, totalPages, publishDate }).exec();
 }
 
 /**
@@ -42,7 +42,7 @@ async function getPosts(query: any) {
 }
 
 async function deletePostById(id: string) {
-    await PostModel.deleteOne({ _id: id });
+    await PostModel.deleteOne({ _id: id }).exec();
 }
 
 export {

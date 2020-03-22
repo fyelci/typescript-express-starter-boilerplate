@@ -23,6 +23,7 @@
     "dev": "./scripts/dev.sh",
     "start": "node dist/server.js",
     "test": "jest",
+    "test:watch": "jest --watch",
     "fix-lint": "./node_modules/eslint/bin/eslint.js  src --ext .ts --fix"
   },
   "dependencies": {
