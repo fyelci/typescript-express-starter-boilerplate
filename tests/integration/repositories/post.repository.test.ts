@@ -11,9 +11,10 @@ describe('post repository test', () => {
         mongoConnection.connect(() => {
         });
     });
-    afterAll(async () => {
+    afterAll(async (done) => {
         mongoConnection.close((err) => {
             if (err) console.error('Error shutting closing mongo connection', err);
+            done();
         });
     });
 
