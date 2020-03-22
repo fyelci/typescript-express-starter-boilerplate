@@ -1,7 +1,7 @@
 import request from 'supertest';
-import { App } from '../src/app';
+import { App } from '../../src/app';
 
-jest.mock('../src/models/post.model');
+jest.mock('../../src/models/post.model');
 const app = App.bootstrap().app;
 
 describe('App Test', () => {

@@ -1,6 +1,6 @@
-import MongoConnection from '../../src/utils/mongo-connection';
-import { createPost, updatePost, getPosts, deletePostById } from '../../src/repositories/post.repository';
-import PostModel from '../../src/models/post.model';
+import MongoConnection from '../../../src/utils/mongo-connection';
+import { createPost, updatePost, getPosts, deletePostById } from '../../../src/repositories/post.repository';
+import PostModel from '../../../src/models/post.model';
 
 const sampleValidPost1 = { title: 'Homo Deus', author: 'Yuval Noah Harari', totalPages: 39, publishDate: '2020-03-22T12:12:28.704Z' };
 const sampleValidPost2 = { title: 'Sample Post ', author: 'Fatih', totalPages: 78, publishDate: '2020-03-22T12:12:28.704Z' };

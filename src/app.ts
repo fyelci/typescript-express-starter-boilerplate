@@ -42,7 +42,6 @@ export class App {
         }),
     );
 
-    // mount override?
     this.app.use(helmet());
     this.app.use(compression());
 

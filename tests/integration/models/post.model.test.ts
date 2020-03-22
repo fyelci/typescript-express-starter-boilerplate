@@ -1,5 +1,5 @@
-import MongoConnection from '../../src/utils/mongo-connection';
-import PostModel from '../../src/models/post.model';
+import MongoConnection from '../../../src/utils/mongo-connection';
+import PostModel from '../../../src/models/post.model';
 
 const sampleValidPost = { title: 'Homo Deus', author: 'Yuval Noah Harari' };
 const sampleInvalidPost = { title: 'Homo Deus' };
