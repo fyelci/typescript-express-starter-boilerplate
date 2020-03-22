@@ -1,8 +1,8 @@
 import {
-  Document, Model, Schema, model
+  Document, Model, Schema, model, SchemaTimestampsConfig
 } from 'mongoose';
 
-export interface IPost extends Document {
+export interface IPost extends Document, SchemaTimestampsConfig{
   /** title of the post */
   title: string;
   /** Name of the author */

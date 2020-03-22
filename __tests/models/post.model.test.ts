@@ -1,19 +1,34 @@
-import mockingoose from 'mockingoose';
+const mongoose = require('mongoose');
 import PostModel from '../../src/post/post.model';
 
-describe('test mongoose User model', () => {
-  test('should return the doc with findById', () => {
-    const _doc = {
-      _id: '507f191e810c19729de860ea',
-      title: 'name',
-      author: 'author',
-    };
+const sampleValidPost = { title: 'Homo Deus', author: 'Yuval Noah Harari' };
+const sampleInvalidPost = { title: 'Homo Deus' };
 
-    mockingoose(PostModel).toReturn(_doc, 'findOne');
-
-    return PostModel.findById({ _id: '507f191e810c19729de860ea' }).then(doc => {
-      expect(JSON.parse(JSON.stringify(doc))).toMatchObject(_doc);
+describe('test post model', () => {
+  beforeAll(async () => {
+    await mongoose.connect(process.env.MONGO_URL, {  useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }, (err: any) => {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
     });
   });
+  afterAll(async () => {
+    await mongoose.disconnect();
+  });
 
+  test('should save post', async () => {
+    const post = new PostModel(sampleValidPost);
+    const savedPost = await post.save();
+    // Object Id should be defined when successfully saved to MongoDB.
+    expect(savedPost._id).toBeDefined();
+    expect(savedPost.title).toBe(sampleValidPost.title);
+    expect(savedPost.author).toBe(sampleValidPost.author);
+    expect(savedPost.createdAt).toBeDefined();
+  });
+
+  test('should fail when object is invalid', async () => {
+    const post = new PostModel(sampleInvalidPost);
+    await expect(post.save()).rejects.toThrow('Post validation failed: author: Path `author` is required.');
+  });
 });
