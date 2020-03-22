@@ -4,30 +4,71 @@ import helmet from 'helmet';
 import path from 'path';
 import express, { Request, Response, NextFunction } from 'express';
 import { ApplicationError } from './utils/applicationError';
-import routes from './routes';
+import { ApiRoutes } from './routes';
 
-const app = express();
 
-app.use(helmet());
-app.use(compression());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set('port', process.env.PORT || 3000);
-
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-
-app.use(routes);
-
-app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
-  if (res.headersSent) {
-    return next(err);
+export class App {
+  public static bootstrap(): App {
+    return new App();
   }
 
-  return res.status(err.status || 500).json({
-    error: process.env.NODE_ENV === 'development' ? err : undefined,
-    message: err.message
-  });
-});
+  public app: express.Application;
 
-export default app;
+  constructor() {
+    // create expressjs application
+    this.app = express();
+
+    // configure application
+    this.config();
+
+    // add routes
+    this.routes();
+  }
+
+  public config() {
+    this.app.set('port', process.env.PORT || 3000);
+
+    // add static paths
+    this.app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
+    // mount json form parser
+    this.app.use(bodyParser.json({ limit: '1mb' }));
+
+    // mount query string parser
+    this.app.use(
+        bodyParser.urlencoded({
+          extended: true,
+        }),
+    );
+
+    // mount override?
+    this.app.use(helmet());
+    this.app.use(compression());
+
+
+    this.app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction) => {
+      if (res.headersSent) {
+        return next(err);
+      }
+
+      return res.status(err.status || 500).json({
+        error: process.env.NODE_ENV === 'development' ? err : undefined,
+        message: err.message
+      });
+    });
+
+    // catch 404 and forward to error handler
+    this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+      err.status = 404;
+      next(err);
+    });
+
+  }
+
+  private routes() {
+    // use router middleware
+    this.app.use(ApiRoutes.path, ApiRoutes.router);
+  }
+}
+

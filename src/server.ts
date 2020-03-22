@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import app from './app';
+import { App } from './app';
 import MongoConnection from './utils/mongo-connection';
 import logger from './utils/logger';
 
@@ -9,6 +9,8 @@ if (result.error) {
 }
 
 const mongoConnection = new MongoConnection(process.env.MONGO_URL);
+
+export const app = App.bootstrap().app;
 
 if (process.env.MONGO_URL == null) {
   logger.error('MONGO_URL not specified in environment');
@@ -20,7 +22,7 @@ if (process.env.MONGO_URL == null) {
         `🌏 Express server started at http://localhost:${app.get('port')}`);
       if (process.env.NODE_ENV === 'development') {
         console.log('\x1b[36m%s\x1b[0m', // eslint-disable-line
-          `⚙️  Swagger UI hosted at http://localhost:${app.get('port')}/dev/api-docs`);
+          `⚙️  Swagger UI hosted at http://localhost:${app.get('port')}/api/dev/api-docs`);
       }
     });
   });

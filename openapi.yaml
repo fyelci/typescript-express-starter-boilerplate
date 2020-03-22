@@ -5,9 +5,9 @@ info:
   description: API Service endpoints
   contact:
     email: fyelci@fyelci.com
-    name: Fatih Yeli
+    name: Fatih Yelci
 servers:
-  - url: 'http://localhost:3000/'
+  - url: 'http://localhost:3000/api/'
 tags:
   - name: post
     description: Sample Service APIs
