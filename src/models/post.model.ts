@@ -1,5 +1,5 @@
 import {
-  Document, Model, Schema, model, SchemaTimestampsConfig
+  Document, Schema, model, SchemaTimestampsConfig
 } from 'mongoose';
 
 export interface IPost extends Document, SchemaTimestampsConfig{
@@ -11,8 +11,6 @@ export interface IPost extends Document, SchemaTimestampsConfig{
   publishDate: string;
 }
 
-interface IPostModel extends Model<IPost> { }
-
 const schema = new Schema({
   title: { type: String, required: true },
   author: { type: String, required: true },
@@ -22,6 +20,4 @@ const schema = new Schema({
   timestamps:true,
 });
 
-const PostModel: IPostModel = model<IPost, IPostModel>('Post', schema);
-
-export default PostModel;
+export default model<IPost>('Post', schema);

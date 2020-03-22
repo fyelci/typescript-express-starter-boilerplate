@@ -1,20 +1,21 @@
-const mongoose = require('mongoose');
-import PostModel from '../../src/post/post.model';
+import MongoConnection from '../../src/utils/mongo-connection';
+import PostModel from '../../src/models/post.model';
 
 const sampleValidPost = { title: 'Homo Deus', author: 'Yuval Noah Harari' };
 const sampleInvalidPost = { title: 'Homo Deus' };
 
 describe('test post model', () => {
+  const mongoConnection = new MongoConnection(process.env.MONGO_URL);
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URL, {  useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }, (err: any) => {
-      if (err) {
-        console.error(err);
-        process.exit(1);
-      }
+    mongoConnection.connect(() => {
     });
   });
   afterAll(async () => {
-    await mongoose.disconnect();
+    mongoConnection.close((err) => {
+      if (err) {
+        console.error('Error shutting closing mongo connection', err);
+      }
+    });
   });
 
   test('should save post', async () => {
