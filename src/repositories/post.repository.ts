@@ -2,19 +2,21 @@ import PostModel, { IPost } from '../models/post.model';
 
 async function createPost(body: any): Promise<IPost> {
     const {
-        title, author, totalPages, publishDate,
+        title, detail, pictureUrl, author, authorProfilePic, publishDate,
     } = body;
 
-    const post = new PostModel({ title, author, totalPages, publishDate });
+    const post = new PostModel({ title, detail, pictureUrl, author, authorProfilePic, publishDate });
     await post.save();
     return post;
 }
 
 async function updatePost(id: string, body: any) {
     const {
-        title, author, totalPages, publishDate,
+        title, detail, pictureUrl,
     } = body;
-    await PostModel.updateOne({ _id: id }, { title, author, totalPages, publishDate }).exec();
+    await PostModel.updateOne({ _id: id }, {
+        title, detail, pictureUrl,
+    }).exec();
 }
 
 /**

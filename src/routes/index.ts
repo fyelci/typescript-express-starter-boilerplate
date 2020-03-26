@@ -19,7 +19,7 @@ export class ApiRoutes {
         this.router.use(PostRoute.path, PostRoute.router);
 
         // Dev routes
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'stage') {
             const swaggerUiOptions = {
                 customCss: '.swagger-ui .topbar { display: none }'
             };

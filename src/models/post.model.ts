@@ -3,18 +3,20 @@ import {
 } from 'mongoose';
 
 export interface IPost extends Document, SchemaTimestampsConfig{
-  /** title of the post */
   title: string;
-  /** Name of the author */
+  detail: string;
+  pictureUrl: string;
   author: string;
-  totalPages: bigint;
+  authorProfilePic: string;
   publishDate: string;
 }
 
 const schema = new Schema({
   title: { type: String, required: true },
-  author: { type: String, required: true },
-  totalPages: { type: Number, required: false },
+  detail: { type: String, required: true },
+  pictureUrl: { type: String, required: true },
+  author: { type: String, required: false },
+  authorProfilePic: { type: String, required: false },
   publishDate: { type: Date, required: false },
 }, {
   timestamps:true,

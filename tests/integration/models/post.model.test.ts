@@ -1,8 +1,8 @@
 import MongoConnection from '../../../src/utils/mongo-connection';
 import PostModel from '../../../src/models/post.model';
 
-const sampleValidPost = { title: 'Homo Deus', author: 'Yuval Noah Harari' };
-const sampleInvalidPost = { title: 'Homo Deus' };
+const sampleValidPost = { title: 'Homo Deus', detail: 'Sample Detail', pictureUrl: 'url', author: 'Yuval Noah Harari' };
+const sampleInvalidPost = { title: 'Homo Deus', pictureUrl: 'url', };
 
 describe('test post model', () => {
   const mongoConnection = new MongoConnection(process.env.MONGO_URL);
@@ -29,6 +29,6 @@ describe('test post model', () => {
 
   test('should fail when object is invalid', async () => {
     const post = new PostModel(sampleInvalidPost);
-    await expect(post.save()).rejects.toThrow('Post validation failed: author: Path `author` is required.');
+    await expect(post.save()).rejects.toThrow('Post validation failed: detail: Path `detail` is required.');
   });
 });

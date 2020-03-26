@@ -1,6 +1,7 @@
 import logger from '../utils/logger';
 import { NextFunction, Request, Response, Router } from 'express';
 import {createPost, deletePostById, getPosts, updatePost} from "../repositories/post.repository";
+import handleError from '../middleware/handle-error-middleware';
 
 export class PostRoute {
     public static path = '/posts';
@@ -10,10 +11,10 @@ export class PostRoute {
     private constructor() {
         logger.info('[PingRoute] Creating ping route.');
 
-        this.router.get('/', this.get);
-        this.router.post('/', this.create);
-        this.router.put('/:id', this.update);
-        this.router.delete('/:id', this.delete);
+        this.router.get('/', handleError(this.get));
+        this.router.post('/', handleError(this.create));
+        this.router.put('/:id', handleError(this.update));
+        this.router.delete('/:id', handleError(this.delete));
     }
 
     static get router() {

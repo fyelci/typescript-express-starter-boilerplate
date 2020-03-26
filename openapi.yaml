@@ -7,7 +7,7 @@ info:
     email: fyelci@fyelci.com
     name: Fatih Yelci
 servers:
-  - url: 'http://localhost:3000/api/'
+  - url: 'http://localhost:3001/api/'
 tags:
   - name: post
     description: Sample Service APIs
@@ -139,12 +139,18 @@ components:
         title:
           type: string
           example: The Hitchhiker's Guide to the Galaxy
+        detail:
+          type: string
+          example: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+        pictureUrl:
+          type: string
+          example: https://i.picsum.photos/id/835/300/200.jpg
         author:
           type: string
           example: Douglas Adams
-        totalPages:
-          type: integer
-          example: 120
+        authorProfilePic:
+          type: string
+          example: https://i.picsum.photos/id/53/200/200.jpg
         publishDate:
           type: string
           example: '2020-03-21T20:38:42.968Z'

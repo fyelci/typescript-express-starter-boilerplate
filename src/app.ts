@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import path from 'path';
+import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 import { ApplicationError } from './utils/applicationError';
 import { ApiRoutes } from './routes';
@@ -44,6 +45,7 @@ export class App {
 
     this.app.use(helmet());
     this.app.use(compression());
+    this.app.use(cors());
 
 
     this.app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction) => {

@@ -2,8 +2,8 @@ import MongoConnection from '../../../src/utils/mongo-connection';
 import { createPost, updatePost, getPosts, deletePostById } from '../../../src/repositories/post.repository';
 import PostModel from '../../../src/models/post.model';
 
-const sampleValidPost1 = { title: 'Homo Deus', author: 'Yuval Noah Harari', totalPages: 39, publishDate: '2020-03-22T12:12:28.704Z' };
-const sampleValidPost2 = { title: 'Sample Post ', author: 'Fatih', totalPages: 78, publishDate: '2020-03-22T12:12:28.704Z' };
+const sampleValidPost1 = { title: 'Homo Deus', detail: 'Sample Detail', pictureUrl: 'url', author: 'Yuval Noah Harari' };
+const sampleValidPost2 = { title: 'Sample Title', detail: 'Sample Detail 2', pictureUrl: 'url2', author: 'Fatih' };
 
 describe('post repository test', () => {
     const mongoConnection = new MongoConnection(process.env.MONGO_URL);
@@ -40,7 +40,6 @@ describe('post repository test', () => {
             const updatedPost = await PostModel.findById(post.id).exec();
 
             expect(updatedPost.title).toBe(updateFields.title);
-            expect(updatedPost.author).toBe(updateFields.author);
         });
     });
 
