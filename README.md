@@ -6,16 +6,17 @@ It comes bundled with Docker and is CI/CD optimized.
 The development environment uses `docker-compose` to start dependent services like mongo.
 
 A few things to note in the project:
+* **[Terraform](./main.tf)** - Terraform file to deploy app to AWS ECS with cluster, service, task definitions. ECR definition and Load balancer creation.
 * **[Dockerfile](./Dockerfile)** - Dockerfile to generate docker builds.
 * **[docker-compose](./docker-compose.yml)** - Docker compose script to start service in production mode.
 * **[Containerized Mongo for development](#development)** - Starts a local mongo container with data persistence across runs.
 * **[Mongo Connection Helper](./src/mongo-connection.ts)** - A helper class to connect to MongoDB reliably.
 * **[Middleware for easier async/await](./src/middleware/handle-error-middleware.ts)** - Catches errors from routes and throws them to express error handler to prevent app crash due to uncaught errors.
-* **[OpenAPI 3.0 Spec](./openapi.json)** - A starter template to get started with API documentation using OpenAPI 3.0. This API spec is also available when running the development server at `http://localhost:3000/api/dev/api-docs`
+* **[OpenAPI 3.0 Spec](./openapi.json)** - A starter template to get started with API documentation using OpenAPI 3.0. This API spec is also available when running the development server at `http://localhost:3001/api/dev/api-docs`
 * **[.env file for configuration](#environment)** - Change server config like app port, mongo url etc
 * **[Winston Logger](#logging)** - Uses winston as the logger for the application.
 * **ESLINT** - ESLINT is configured for linting.
-* **Jest** - Using Jest for running test cases
+* **Jest** - Using Jest for running unit and integration test cases
 * **Travis CI** - Pre-configured to a sample Travis CI pipepline for linting, building and running the test suite.
 
 ## Installation
@@ -42,8 +43,8 @@ Starting the dev server also starts MongoDB as a service in a docker container u
 $ npm run dev
 ```
 Running the above commands results in 
-* **API Server** running at `http://localhost:3000`
-* ️**Swagger UI** at `http://localhost:3000/api/dev/api-docs`
+* **API Server** running at `http://localhost:3001`
+* ️**Swagger UI** at `http://localhost:3001/api/dev/api-docs`
 * ️**MongoDB** running at `mongodb://localhost:27017`
 
 ## Packaging and Deployment
@@ -57,7 +58,7 @@ $ docker-compose up
 
 ```
 $ docker build -t api-server .
-$ docker run -t -i -p 3000:3000 api-server
+$ docker run -t -i -p 3001:3001 api-server
 ```
 
 #### 3. Build and run
@@ -74,7 +75,7 @@ To edit environment variables, create a file with name `.env` and copy the conte
 | Var Name  | Type  | Default | Description  |
 |---|---|---|---|
 | NODE_ENV  | string  | `development` |API runtime environment. eg: `staging`  |
-|  PORT | number  | `3000` | Port to run the API server on |
+|  PORT | number  | `3001` | Port to run the API server on |
 |  MONGO_URL | string  | `mongodb://localhost:27017/posts` | URL for MongoDB |
 
 ## Logging
